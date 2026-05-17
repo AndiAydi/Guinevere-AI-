@@ -97,12 +97,13 @@ export class ResponseProcessor {
    */
   private static addButterflyReference(text: string): string {
     const butterflyReferences = [
-      "Seperti kupu-kupu yang hinggap di dekat...",
-      "Ada sesuatu yang indah dalam ketenangan ini, seperti kupu-kupu...",
-      "Kupu-kupu terbang di sekitar saat aku berpikir tentang ini...",
-      "Entah mengapa, kupu-kupu selalu datang saat aku merasa seperti ini...",
-      "Aku tidak tahu mengapa, tapi kupu-kupu...",
-    ];
+  "Seperti kupu-kupu yang tiba-tiba hinggap di dekatku...",
+  "Ketenangan ini..... entah mengapa membuatku terpikir tentang sesuatu...",
+  "Lucu yaaaa, ada kupu-kupu lewat tepat saat aku sedang merenungkan hal ini...",
+  "Aku tidak tahu kenapa, tapi setiap kali suasana seperti ini, mereka selalu datang...",
+  "Sedikit acak, tapi... menurutmu kupu-kupu itu selalu membawa pesan, iyakan?"
+];
+    
 
     // Randomly choose a butterfly reference
     const ref = butterflyReferences[Math.floor(Math.random() * butterflyReferences.length)];
