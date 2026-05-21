@@ -6,12 +6,25 @@ import { chatRouter } from "./routers/chat";
 import { problemSolvingRouter } from "./routers/problemSolving";
 
 export const appRouter = router({
-    // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
+  // Router bawaan sistem core
   system: systemRouter,
+  
+  // Router fitur robot Guinevere AI lu
   chat: chatRouter,
   problemSolving: problemSolvingRouter,
+  
+  // Router Autentikasi (Ini dia satpamnya, Di!)
   auth: router({
-    me: publicProcedure.query(opts => opts.ctx.user),
+    // Frontend tinggal manggil: trpc.auth.me.useQuery()
+    me: publicProcedure.query(({ ctx }) => {
+      // tRPC otomatis ngecek session lewat ctx (context)
+      if (!ctx.user) {
+        return { authenticated: false, user: null };
+      }
+      return { authenticated: true, user: ctx.user };
+    }),
+
+    // Fitur Logout resmi bawaan tRPC
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
@@ -20,13 +33,6 @@ export const appRouter = router({
       } as const;
     }),
   }),
-
-  // TODO: add feature routers here, e.g.
-  // todo: router({
-  //   list: protectedProcedure.query(({ ctx }) =>
-  //     db.getUserTodos(ctx.user.id)
-  //   ),
-  // }),
 });
 
 export type AppRouter = typeof appRouter;

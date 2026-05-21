@@ -152,9 +152,9 @@ export default function GuinevereChatBox() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-gradient-to-br from-sky-300 via-sky-200 to-sky-400">
+    <div className="flex flex-col h-full bg-slate-950 text-slate-100">
       {/* Header dengan Relationship Status */}
-      <div className="border-b border-sky-400 px-6 py-4 bg-green-500/80 backdrop-blur-sm">
+      <div className="border-b border-slate-800 px-6 py-4 bg-slate-900/70 backdrop-blur-md">
         <div className="flex items-center justify-between mb-3">
           <div>
             <h1 className="text-2xl font-light text-white tracking-wide">Guinevere</h1>
@@ -215,8 +215,8 @@ export default function GuinevereChatBox() {
               <div
                 className={`max-w-xs lg:max-w-md xl:max-w-lg px-4 py-3 rounded-lg ${
                   msg.role === "user"
-                    ? "bg-sky-500 text-white shadow-md"
-                    : "bg-green-500 text-white shadow-md"
+                   ? "bg-sky-600 text-white shadow-md rounded-br-none" 
+                   : "bg-slate-800 text-slate-100 shadow-md rounded-bl-none"
                 }`}
               >
                 <Streamdown>{msg.content}</Streamdown>
@@ -242,7 +242,7 @@ export default function GuinevereChatBox() {
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-sky-400 px-6 py-4 bg-green-500/80 backdrop-blur-sm">
+      <div className="border-t border-slate-800 px-6 py-4 bg-slate-900/70 backdrop-blur-sm">
         <div className="flex gap-3">
           <Input
             value={input}
