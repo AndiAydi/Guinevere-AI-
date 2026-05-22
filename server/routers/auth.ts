@@ -1,18 +1,15 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { router, publicProcedure } from "../_core/trpc";
-import { supabase } from "../_core/supabase"; // Narik koneksi Supabase lu
+import { supabase } from "../_core/supabase"; 
 
 export const authRouter = router({
-  // 1. FUNGSI KIRIM KODE VERIFIKASI (OTP) KE EMAIL SURAT
   sendOTP: publicProcedure
     .input(z.object({ email: z.string().email() }))
     .mutation(async ({ input }) => {
-      // Perintahkan Supabase buat ngirim kode OTP 6 digit ke email
       const { error } = await supabase.auth.signInWithOtp({
         email: input.email,
         options: {
-          // Kalo user baru belum terdaftar, Supabase otomatis bakal daftarin (Sign Up)
           shouldCreateUser: true, 
         },
       });
@@ -25,20 +22,24 @@ export const authRouter = router({
         });
       }
 
-      return { success: true, message: "Kode OTP berhasil dikirim ke email surat lu, cug!" };
+      return { 
+        success: true, 
+        message: "Kode OTP berhasil dikirim ke email surat lu, cug!",
+        // 🤖 IoT Ready: Robot bakal kedip & tegap pas sukses kirim
+        iot_meta: { oled_state: "EYE_BLINK", servo_action: "LOOK_STRAIGHT" }
+      };
     }),
 
-  // 2. FUNGSI VERIFIKASI KODE OTP YANG DIINPUT USER
   verifyOTP: publicProcedure
     .input(z.object({ 
       email: z.string().email(),
-      token: z.string().length(6) // Kode OTP biasanya 6 digit
+      token: z.string().length(6) 
     }))
     .mutation(async ({ input }) => {
       const { data, error } = await supabase.auth.verifyOtp({
         email: input.email,
         token: input.token,
-        type: 'email', // Pilih tipe verifikasi email
+        type: 'email', 
       });
 
       if (error) {
@@ -52,6 +53,7 @@ export const authRouter = router({
         success: true,
         user: data.user,
         session: data.session,
+        iot_meta: { oled_state: "EYE_LOVE", servo_action: "NOD_HEAD_HAPPY" }
       };
     }),
 });
