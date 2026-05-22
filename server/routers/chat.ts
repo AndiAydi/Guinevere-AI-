@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { router, publicProcedure } from "../_core/trpc";
-import { GoogleGenAI } from "@google/genai"; // Import library Google baru lu
+import { GoogleGenAI } from "@google/genai"; // Import library Google 
 
 // Inisialisasi Gemini pake API Key dari file .env
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
