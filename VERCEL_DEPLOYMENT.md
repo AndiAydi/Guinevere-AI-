@@ -300,5 +300,3 @@ Jika perlu redeploy tanpa code changes:
 
 ---
 
-**Last Updated:** April 2026
-**Version:** 2.1
